@@ -1,5 +1,6 @@
 # Continuous Integration and Deployment with Jenkins and GitHub
 In this assessment task, you will be required to create a Jenkins pipeline that integrates with GitHub.
+Changing for changes.
 
 ## Define a pipeline with 7 stages. The stages should include:
 - [x] Stage 1: Build - Build the code using a build automation tool to compile and package your code. You need to specify at least one build automation tool e.g., Maven.  
