@@ -37,11 +37,11 @@ pipeline {
 }
 
 def sendEmailNotification(stageName, isSuccessful) {
-    emailext subject: "Pipeline ${currentBuild.result}: ${stageName}",
-        mail to: "josh.kilinc@gmail.com",
-        body: """
-            <p>Stage: ${stageName}</p>
-            <p>Status: ${isSuccessful ? 'Success' : 'Failure'}</p>
-            """,
-        attachmentsPattern: 'build.log'
+    mail to: "josh.kilinc@gmail.com",
+    subject: "Pipeline ${currentBuild.result}: ${stageName}",
+    body: """
+        <p>Stage: ${stageName}</p>
+        <p>Status: ${isSuccessful ? 'Success' : 'Failure'}</p>
+        """,
+    attachmentsPattern: 'build.log'
 }
