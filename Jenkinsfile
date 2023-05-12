@@ -68,19 +68,20 @@ pipeline {
 
 
 def sendEmailNotification(stageName) {
-        emailext body: "Pipeline ${currentBuild.result}: Job ${env.JOB_NAME} Build #${env.BUILD_NUMBER}\n\n${env.BUILD_URL}",
-        mimeType: 'text/html',
+    emailext compressLog: true, body: "Pipeline ${currentBuild.result}: Job ${env.JOB_NAME} Build #${env.BUILD_NUMBER}\n\n${env.BUILD_URL}",
+    mimeType: 'text/html',
+    subject: "${currentBuild.result}: ${env.JOB_NAME} build #${env.BUILD_NUMBER}",
+    to: "${emailAddress}",
+    attachLog: true,
+
+    mail to: "josh.kilinc@gmail.com",
         subject: "${currentBuild.result}: ${env.JOB_NAME} build #${env.BUILD_NUMBER}",
-        to: "${emailAddress}",
-        compressLog: true,
+        body: """
+            Stage: ${stageName}
+            Status: ${currentBuild.result}
+            ${BUILD_LOG, maxLines, escapeHtml}
+            """,
         attachLog: true
 }
 
-        // mail to: "josh.kilinc@gmail.com",
-        // subject: "Pipeline ${currentBuild.result}: ${stageName}",
-        // body: """
-        //     Stage: ${stageName}
-        //     Status: ${currentBuild.result}
-        //     ${BUILD_LOG, maxLines, escapeHtml}
-        //     """,
-        // attachmentsPattern: 'build.log'
+        
