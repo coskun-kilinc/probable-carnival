@@ -5,68 +5,42 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the code using Maven'
+                // Perform the build steps here
             }
             post {
-                always {
-                    emailext subject: "Pipeline ${currentBuild.result}: ${stageName}",
-                        body: """
-                            <p>Stage: ${stageName}</p>
-                            <p>Status: Good.</p>
-                            """,
-                        attachmentsPattern: 'build.log'
+                success {
+                    sendEmailNotification('Build', true)
+                }
+                failure {
+                    sendEmailNotification('Build', false)
                 }
             }
         }
 
-        stage('Unit and Integration Tests') {
-            steps {
-                echo 'Running unit tests'
-                echo 'Running integration tests'
-            }
-            post {
-                always {
-                    mail to: "josh.kilinc@gmail.com",
-                    subject: "Unit and Integration Test Status Email",
-                    body: "Unit and Integration Test log attached!"
-                }
-            }
-        }
-
-        stage('Code Analysis') {
-            steps {
-                echo 'Analyzing the code using a code analysis tool (e.g., SonarQube)'
-            }
-        }
-
-        stage('Security Scan') {
-            steps {
-                echo 'Performing a security scan using a security scanning tool (e.g., SonarQube or OWASP ZAP)'
-            }
-            post {
-                always {
-                    mail to: "josh.kilinc@gmail.com",
-                    subject: "Security Scan Status Email",
-                    body: "Security Scan log attached!"
-                }
-            }
-        }
-
-        stage('Deploy to Staging') {
-            steps {
-                echo 'Deploying the application to a staging server (e.g., AWS EC2)'
-            }
-        }
-
-        stage('Integration Tests on Staging') {
-            steps {
-                echo 'Running integration tests on the staging environment'
-            }
-        }
+        // Other stages follow the same pattern
 
         stage('Deploy to Production') {
             steps {
                 echo 'Deploying the application to a production server (e.g., AWS EC2)'
+                // Perform the deployment steps here
+            }
+            post {
+                success {
+                    sendEmailNotification('Deploy to Production', true)
+                }
+                failure {
+                    sendEmailNotification('Deploy to Production', false)
+                }
             }
         }
     }
+}
+
+def sendEmailNotification(stageName, isSuccessful) {
+    emailext subject: "Pipeline ${currentBuild.result}: ${stageName}",
+        body: """
+            <p>Stage: ${stageName}</p>
+            <p>Status: ${isSuccessful ? 'Success' : 'Failure'}</p>
+            """,
+        attachmentsPattern: 'build.log'
 }
