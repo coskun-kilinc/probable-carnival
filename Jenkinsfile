@@ -17,9 +17,11 @@ pipeline {
                 echo 'Running unit tests'
                 echo 'Running integration tests'
             }
-            always  {
+            post {
+                always  {
                     sendEmailNotification('Unit and Integration Tests')
                 }
+            }
         }
 
         stage('Code Analysis') {
@@ -32,9 +34,11 @@ pipeline {
             steps {
                 echo 'Performing a security scan using a security scanning tool (e.g., SonarQube or OWASP ZAP)'
             }
-            always  {
-                    sendEmailNotification('Security Scan')
-                }
+            post {
+                always  {
+                        sendEmailNotification('Security Scan')
+                    }
+            }
         }
 
         stage('Deploy to Staging') {
@@ -47,9 +51,11 @@ pipeline {
             steps {
                 echo 'Running integration tests on the staging environment'
             }
-            always  {
+            post {
+                 always  {
                     sendEmailNotification('Integration Tests on Staging')
                 }
+            }
         }
 
         stage('Deploy to Production') {
@@ -67,7 +73,7 @@ def sendEmailNotification(stageName) {
         subject: "${currentBuild.result}: ${env.JOB_NAME} build #${env.BUILD_NUMBER}",
         to: "${emailAddress}",
         attachLog: true
-
+}
 
         // mail to: "josh.kilinc@gmail.com",
         // subject: "Pipeline ${currentBuild.result}: ${stageName}",
@@ -77,4 +83,3 @@ def sendEmailNotification(stageName) {
         //     ${BUILD_LOG, maxLines, escapeHtml}
         //     """,
         // attachmentsPattern: 'build.log'
-}
