@@ -10,7 +10,7 @@ pipeline {
                 always {
                     mail to: "ckilinc@deakin.edu.au",
                     subject: "Build Status Email",
-                    body: "Build log attached!",
+                    body: "Build log attached!"
                 }
             }
         }
