@@ -9,8 +9,9 @@ pipeline {
             post {
                 always {
                     mail to: "josh.kilinc@gmail.com",
-                    subject: "Build Status Email",
-                    body: "Build log attached!"
+                    subject: "Build Status: ${currentBuild.result}",
+                    body: "Build log attached!",
+                    attachmentsPattern: 'build.log'
                 }
             }
         }
