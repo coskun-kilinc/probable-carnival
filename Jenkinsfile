@@ -8,9 +8,9 @@ pipeline {
             }
             post {
                 always {
-                    mail to: "ckilinc@deakin.edu.au"
-                    subject: "Build Status Email"
-                    body: "Build log attached!"
+                    mail to: "ckilinc@deakin.edu.au",
+                    subject: "Build Status Email",
+                    body: "Build log attached!",
                 }
             }
         }
@@ -22,8 +22,8 @@ pipeline {
             }
             post {
                 always {
-                    mail to: "ckilinc@deakin.edu.au"
-                    subject: "Unit and Integration Test Status Email"
+                    mail to: "ckilinc@deakin.edu.au",
+                    subject: "Unit and Integration Test Status Email",
                     body: "Unit and Integration Test log attached!"
                 }
             }
@@ -41,8 +41,8 @@ pipeline {
             }
             post {
                 always {
-                    mail to: "ckilinc@deakin.edu.au"
-                    subject: "Security Scan Status Email"
+                    mail to: "ckilinc@deakin.edu.au",
+                    subject: "Security Scan Status Email",
                     body: "Security Scan log attached!"
                 }
             }
