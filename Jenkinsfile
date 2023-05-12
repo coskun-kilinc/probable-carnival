@@ -37,5 +37,6 @@ def sendEmailNotification(stageName) {
         Stage: ${stageName}
         Status: ${currentBuild.result}
         """,
+    attachLog: true,
     attachmentsPattern: 'build.log'
 }
