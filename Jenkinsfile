@@ -6,8 +6,8 @@ pipeline {
             steps {
                 echo 'Building the code using Maven'
             }
-            post{
-                always{
+            post {
+                always {
                     mail to: "ckilinc@deakin.edu.au"
                     subject: "Build Status Email"
                     body: "Build log attached!"
@@ -20,12 +20,13 @@ pipeline {
                 echo 'Running unit tests'
                 echo 'Running integration tests'
             }
-            post{
-                always{
+            post {
+                always {
                     mail to: "ckilinc@deakin.edu.au"
                     subject: "Unit and Integration Test Status Email"
                     body: "Unit and Integration Test log attached!"
                 }
+            }
         }
 
         stage('Code Analysis') {
@@ -38,12 +39,13 @@ pipeline {
             steps {
                 echo 'Performing a security scan using a security scanning tool (e.g., SonarQube or OWASP ZAP)'
             }
-            post{
-                always{
+            post {
+                always {
                     mail to: "ckilinc@deakin.edu.au"
                     subject: "Security Scan Status Email"
                     body: "Security Scan log attached!"
                 }
+            }
         }
 
         stage('Deploy to Staging') {
