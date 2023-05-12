@@ -31,7 +31,7 @@ pipeline {
 }
 
 def sendEmailNotification(stageName) {
-    mail to: "josh.kilinc@gmail.com"
+    mail to: "josh.kilinc@gmail.com",
     subject: "Pipeline ${currentBuild.result}: ${stageName}",
     body: """
         Stage: ${stageName}
