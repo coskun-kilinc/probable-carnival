@@ -72,6 +72,7 @@ def sendEmailNotification(stageName) {
         mimeType: 'text/html',
         subject: "${currentBuild.result}: ${env.JOB_NAME} build #${env.BUILD_NUMBER}",
         to: "${emailAddress}",
+        compressLog: true,
         attachLog: true
 }
 
