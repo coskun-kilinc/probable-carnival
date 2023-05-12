@@ -72,16 +72,7 @@ def sendEmailNotification(stageName) {
     mimeType: 'text/html',
     subject: "${currentBuild.result}: ${env.JOB_NAME} build #${env.BUILD_NUMBER}",
     to: "${emailAddress}",
-    attachLog: true,
-
-    mail to: "josh.kilinc@gmail.com",
-        subject: "${currentBuild.result}: ${env.JOB_NAME} build #${env.BUILD_NUMBER}",
-        body: """
-            Stage: ${stageName}
-            Status: ${currentBuild.result}
-            ${BUILD_LOG, maxLines, escapeHtml}
-            """,
-        attachLog: true
+    attachLog: true
 }
 
         
