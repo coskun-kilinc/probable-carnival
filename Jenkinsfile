@@ -8,7 +8,7 @@ pipeline {
             }
             post {
                 always {
-                    mail to: "ckilinc@deakin.edu.au",
+                    mail to: "josh.kilinc@gmail.com",
                     subject: "Build Status Email",
                     body: "Build log attached!"
                 }
@@ -22,7 +22,7 @@ pipeline {
             }
             post {
                 always {
-                    mail to: "ckilinc@deakin.edu.au",
+                    mail to: "josh.kilinc@gmail.com",
                     subject: "Unit and Integration Test Status Email",
                     body: "Unit and Integration Test log attached!"
                 }
@@ -41,7 +41,7 @@ pipeline {
             }
             post {
                 always {
-                    mail to: "ckilinc@deakin.edu.au",
+                    mail to: "josh.kilinc@gmail.com",
                     subject: "Security Scan Status Email",
                     body: "Security Scan log attached!"
                 }
