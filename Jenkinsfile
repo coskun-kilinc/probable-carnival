@@ -31,12 +31,13 @@ pipeline {
 }
 
 def sendEmailNotification(stageName) {
+    emailext attachLog: true,
     mail to: "josh.kilinc@gmail.com",
     subject: "Pipeline ${currentBuild.result}: ${stageName}",
     body: """
         Stage: ${stageName}
         Status: ${currentBuild.result}
+        ${BUILD_LOG, maxLines, escapeHtml}
         """,
-    attachLog: true,
     attachmentsPattern: 'build.log'
 }
