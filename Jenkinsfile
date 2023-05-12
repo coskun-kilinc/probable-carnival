@@ -8,11 +8,8 @@ pipeline {
                 // Perform the build steps here
             }
             post {
-                success {
-                    sendEmailNotification('Build', true)
-                }
-                failure {
-                    sendEmailNotification('Build', false)
+                always  {
+                    sendEmailNotification('Build')
                 }
             }
         }
@@ -25,23 +22,20 @@ pipeline {
                 // Perform the deployment steps here
             }
             post {
-                success {
-                    sendEmailNotification('Deploy to Production', true)
-                }
-                failure {
-                    sendEmailNotification('Deploy to Production', false)
+                always {
+                    sendEmailNotification('Deploy to Production')
                 }
             }
         }
     }
 }
 
-def sendEmailNotification(stageName, isSuccessful) {
-    mail to: "josh.kilinc@gmail.com",
+def sendEmailNotification(stageName) {
+    mail to: "josh.kilinc@gmail.com"
     subject: "Pipeline ${currentBuild.result}: ${stageName}",
     body: """
-        <p>Stage: ${stageName}</p>
-        <p>Status: ${isSuccessful ? 'Success' : 'Failure'}</p>
+        Stage: ${stageName}
+        Status: ${currentBuild.result}
         """,
     attachmentsPattern: 'build.log'
 }
